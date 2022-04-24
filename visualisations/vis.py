@@ -2,14 +2,14 @@ import datetime
 import numpy as np 
 import netCDF4 as nc
 from scipy import stats
-from lib import plot_time_series
+from iolib import plot_time_series
 
 PATH = "data/1991TS"
-FILENAME = "fg.T1Hmax.UMRA2T.19910428_19910501.BOB01.4p4km.nc"
+FILENAME = "fg.T1Hmax.UMRA2T.19910428_19910501.BOB01.1p5km.nc"
 
 fn = f"{PATH}/{FILENAME}"
 fg = nc.Dataset(fn)
-    
+
 lat = fg.variables["latitude"][:]
 lng = fg.variables["longitude"][:]
 wind_speed = fg.variables["wind_speed_of_gust"][:]
@@ -25,5 +25,5 @@ clouds = np.array(
 
 print("Threshold completed", datetime.datetime.now().utcnow().__str__())
 
-plot_time_series('contour.gif', lng, lat, np.array(thresh_wind), clouds=clouds)
+plot_time_series('wind_speed1p5.mp4', lng, lat, np.array(thresh_wind), clouds=clouds, size="1p5")
 # plot_time_series("contour.gif", lng, lat, np.array([wind_speed[0]]))
