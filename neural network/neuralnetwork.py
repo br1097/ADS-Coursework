@@ -9,8 +9,9 @@ from tensorflow.keras.layers import Dense, LSTM
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import MinMaxScaler
 from sklearn import preprocessing
+import netCDF4 as nc
 
-dataframe = pd.read_csv('NNtesting2.csv', header=0)
+# dataframe = pd.read_csv('NNtesting2.csv', header=0)
 dataset = dataframe.values
 dataset = dataset.astype('float')
 #print(dataset[:10])
@@ -27,7 +28,7 @@ air_temp_column = dataframe[column].astype('float')
 x_train = []
 y_train = []
 
-look_back = 20
+look_back = 50
 look_forward = 1
 
 for i in range(look_back, len(dataset_for_training) - look_forward +1):
@@ -35,13 +36,13 @@ for i in range(look_back, len(dataset_for_training) - look_forward +1):
    x_train.append(dataset_for_training[i - look_back:i, 0:dataset.shape[1]])
    y_train.append(dataset_for_training[i + look_forward - 1:i + look_forward, 0])
 
-x_train, y_train = np.array(x_train), np.array(y_train)
+x_train,y_train = np.array(x_train), np.array(y_train)
 
 model = Sequential()
 
 model.add(LSTM(64, input_shape=(x_train.shape[1], x_train.shape[2]), activation='sigmoid', return_sequences=True))
 model.add(LSTM(32, activation='sigmoid',return_sequences=False))
-model.add(Dense(y_train.shape[1]))
+model.add(Dense((y_train.shape[1])))
 
 opt = tf.keras.optimizers.Adam(learning_rate=1e-2)
 model.compile(loss='mean_squared_error', optimizer=opt, metrics=['mean_squared_error'])
@@ -58,11 +59,10 @@ y_prediction_future = scaler.inverse_transform(prediction_copies)[:,0]
 #pd.DataFrame(x_test_predict).to_csv("predicted_data.csv")
 
 fig, ax = plt.subplots()
-#ax.plot(np.arange(len(dataset)), air_temp_column, 'b-') #actual
-ax.plot( np.arange(0,len(dataset)-len(y_prediction_future)), air_temp_column[:-len(y_prediction_future)], 'b-' ) #actual
+ax.plot(np.arange(len(dataset)), air_temp_column, 'b-') #actual
+#ax.plot( np.arange(0,len(dataset)-len(y_prediction_future)), air_temp_column[:-len(y_prediction_future)], 'b-' ) #actual
 ax.plot(np.arange(len(dataset)-len(y_prediction_future),len(dataset)), y_prediction_future, 'r-') #forecast
-#ax.plot(np.arange(len(dataset)-len(x_test_predict),len(dataset)-len(x_predict)),x_test_predict[0:-len(x_predict)], 'c-')
-ax.set_ylabel('Air temperature (K)')
-ax.legend(["Real data", "Prediction"], loc="upper left")
+ax.set_ylabel('Wind Speed')
+ax.legend(["Real data", "Prediction"], loc="upper right")
 plt.grid()
 plt.show()
