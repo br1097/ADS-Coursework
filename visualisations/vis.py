@@ -5,7 +5,7 @@ import netCDF4 as nc
 from scipy import stats
 from iolib import plot_time_series, plot_centroid_path, plot_blank_map
 from memory import get_centroids
-
+from mllib import z_score_threshold
 import pandas as pd
 
 
@@ -39,11 +39,7 @@ if __name__ == "__main__":
             wind_speed = fg.variables["wind_speed_of_gust"][:]
             
             print("Threshold started", datetime.datetime.now().utcnow().__str__())
-            thresh_wind = np.array(
-                [[np.where(frame < wind_speed.max() * .3, np.nan, frame) for frame in ensemble ] for ensemble in wind_speed ])
-
-            below_wind = np.array(
-                [[np.where(frame < wind_speed.max() * .3, frame, np.nan) for frame in ensemble ] for ensemble in wind_speed ])
+            thresh_wind, below_wind = z_score_threshold(wind_speed)
 
             clouds = np.array(
                 [[np.where(stats.zscore(frame, nan_policy="omit") > -1, frame, np.nan) for frame in ensemble] for ensemble in below_wind])
