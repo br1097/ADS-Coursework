@@ -4,3 +4,4 @@
 .env
 **/out/*
 **/test.csv
+**/vis/*
