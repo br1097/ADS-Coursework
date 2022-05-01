@@ -42,16 +42,21 @@ if __name__ == "__main__":
 
             fig.colorbar(cntr, ax=ax)
             plt.margins(x=0, y=0)
+            OUTPUT_DIR = "report_images"
+            
+            plt.title("Geopotential Height (m); Cyclone BoB 1; 1991; 4.4 km", size=12)
             plt.savefig(f"{OUTPUT_DIR}/geopotential_height.png", bbox_inches='tight')
 
             fig, ax = plt.subplots()
             cntr = plt.contourf(long, lat, rainfall[0][0])
             fig.colorbar(cntr, ax=ax)
+            plt.title("Rainfall (kg/m^2); Cyclone BoB 1; 1991; 4.4 km", size=12)
             plt.savefig(f"{OUTPUT_DIR}/rainfall.png", bbox_inches='tight')
             
             fig, ax = plt.subplots()
             cntr = plt.contourf(long, lat, wind_speed[0][0])
             fig.colorbar(cntr, ax=ax)
+            plt.title("Wind Speed (m/s); Cyclone BoB 1; 1991; 4.4 km", size=12)
             plt.savefig(f"{OUTPUT_DIR}/wind_speed.png", bbox_inches='tight')
         elif sys.argv[1] == "hist":
             plt.hist(rainfall[0][0].flatten(), bins=20)
@@ -66,5 +71,6 @@ if __name__ == "__main__":
             
         elif sys.argv[1] == "var":
             print(f"Rainfall Variance: {np.var(rainfall[0][0].flatten())} \nWind Speed Variance: {np.var(wind_speed[0][0].flatten())}")
+            
         else:
             print("Use options: \n    `vis` for visualisations\n    `hist` for histograms")

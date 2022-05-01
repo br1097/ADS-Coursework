@@ -29,7 +29,7 @@ def z_score_threshold(variable):
     below = np.full(variable.shape, np.nan)
     for ens_idx, (ensemble, ensemble_score) in enumerate(zip(variable, stats.zscore(variable, axis=None))):
         for fr_idx, (frame, frame_score) in enumerate(zip(ensemble, ensemble_score)):
-            above[ens_idx][fr_idx] = np.where(frame_score >= 3, frame, np.nan)
+            above[ens_idx][fr_idx] = np.where(frame_score >= 3, frame, 0)
             below[ens_idx][fr_idx] = np.where(frame_score < 3, frame, np.nan)
     
     return above, below

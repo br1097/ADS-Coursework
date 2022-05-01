@@ -174,8 +174,8 @@ def plot_time_series(output_filename: str, lng: np.ndarray, lat: np.ndarray, var
     iio.imwrite(f"{OUTPUT_DIRNAME}/{output_filename}", frames)
             
     # Remove files
-    for filename in set(filenames):
-        os.remove(filename)
+    # for filename in set(filenames):
+    #     os.remove(filename)
         
 
 def plot_centroid_path(output_filename: str, lng: np.ndarray, lat: np.ndarray, centroids: np.ndarray):
@@ -224,3 +224,21 @@ def plot_blank_map(output_filename: str, lng: np.ndarray, lat: np.ndarray, kind:
     plt.title(f"{kind}km Resolution", size=28)
     
     plt.savefig(f"{OUTPUT_DIRNAME}/{output_filename}")
+    
+def plot_single_frame(output_filename: str, lng: np.ndarray, lat: np.ndarray, frame: np.ndarray, clouds:np.ndarray=None, kind:str="wind_speed", size:str="4p4"):
+    if kind == "wind_speed":
+        fig, ax = plot_wind_speed(lng, lat, frame, None, clouds=clouds, size=size)
+        plt.savefig(f"{OUTPUT_DIRNAME}/{output_filename}", bbox_inches='tight')
+        
+        
+def plot_single_centroid(output_filename:str, lng: np.array, lat: np.array, frame: np.array, centroid:np.ndarray, size="4p4"):
+    fig = plt.figure()
+    fig.set_size_inches(20, 20)
+    
+    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
+    ax.set_extent([lng.min(), lng.max(), lat.min(), lat.max()])
+    ax.contourf(lng, lat, frame, transform=ccrs.PlateCarree())
+
+    plt.plot(centroid[1], centroid[0], marker="o", color="#F00", markersize=20)
+
+    plt.savefig(f"{OUTPUT_DIRNAME}/{output_filename}", bbox_inches="tight")

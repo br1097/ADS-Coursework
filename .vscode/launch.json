@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
 
+
         {
             "name": "Debug Centroids",
             "type": "python",
@@ -25,6 +26,16 @@
             "justMyCode": true,
             "args": [
                 "pressure"
+            ]
+        },{
+            "name": "Debug Single Centroid",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/visualisations/vis.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "report_clusters"
             ]
         }
     ]
