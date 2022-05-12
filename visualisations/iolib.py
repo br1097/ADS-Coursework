@@ -9,6 +9,7 @@ from matplotlib.colors import ListedColormap
 import matplotlib
 import imageio.v3 as iio
 import numpy as np
+from typing import List
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -37,6 +38,21 @@ cities_bangla = [
         "name": "ঢাকা",
         "lat": 23.8103,
         "lng": 90.4125
+    },
+    {
+        "name": "সিলেট",
+        "lat": 24.9,
+        "lng": 91.866667
+    },
+    {
+        "name": "রাজশাহী",
+        "lat": 24.366667,
+        "lng": 88.6
+    },
+    {
+        "name": "খুলনা",
+        "lat": 22.82,
+        "lng": 89.55
     }]
 cities_romanticised = [
         {
@@ -241,4 +257,33 @@ def plot_single_centroid(output_filename:str, lng: np.array, lat: np.array, fram
 
     plt.plot(centroid[1], centroid[0], marker="o", color="#F00", markersize=20)
 
+    plt.savefig(f"{OUTPUT_DIRNAME}/{output_filename}", bbox_inches="tight")
+    
+def plot_all_paths(output_filename: str, lng: np.ndarray, lat: np.ndarray, allcentroids: np.ndarray, cycloneNames: List[str]):
+    fig = plt.figure()
+    fig.set_size_inches(20, 20)
+    
+    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
+    delta = 7
+    ax.set_extent([lng.min()+ delta, lng.max()- delta, lat.min()+ delta, lat.max()- delta])
+    
+    image = cimgt.MapboxTiles(os.environ.get("MAPBOX_TOKEN"), 'satellite-v9')
+    ax.add_image(image, 6)
+    
+    ax.coastlines()
+    ax.add_feature(cfeature.LAND)
+    ax.add_feature(cfeature.BORDERS)
+    
+    # plt.title("Path of All Cyclones", size=28)
+    
+    # Add City Tags
+    for city in cities_bangla:
+        plt.plot(city["lng"], city["lat"], "mo", markersize=12)
+        delta = .2 # if size == "4p4" else .1
+        ax.annotate(city["name"], xy=(city["lng"] + delta, city["lat"] + delta/2), size=28, color="#D0DF")
+        
+    # add centroids
+    for centroids, name in zip(allcentroids, cycloneNames):
+        plt.plot(centroids[:,1], centroids[:,0], linestyle="dashed", marker="o", markersize=12, label=name)
+    plt.legend(loc="upper left", prop={'size': 28}, markerscale=1)
     plt.savefig(f"{OUTPUT_DIRNAME}/{output_filename}", bbox_inches="tight")
