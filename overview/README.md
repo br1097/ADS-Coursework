@@ -6,7 +6,8 @@ Visualisations made with explainability in mind. A priority of the project was t
 
 This effected the choice of variable, Wind Speed of Gust, as well as the visuals. Major cities were listed to provide concrete conceptual grounding. 
 
-![Wind Speed](wind_speed4p4.mp4)
+
+https://user-images.githubusercontent.com/40215823/183653555-6cfdba17-5c40-409a-a2f3-d081105e3d86.mp4
 
 
 ## Centroids
