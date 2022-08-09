@@ -14,9 +14,9 @@ https://user-images.githubusercontent.com/40215823/183653555-6cfdba17-5c40-409a-
 I devised an algorithm based on K-means and GMM to find the centre of a cyclone. A derivation and explanation can be found in [this Jupyter Notebook](../exploration/clustering.ipynb)
 
 ### Initial testing
-<img src="centroid_threshold.gif" alt="Centroid" width="300"/>
+<img src="centroid_threshold.gif" alt="Centroid" width="500"/>
 
 ### Full Visualisation
 This is a depiction of the paths of all of the cyclones in our dataset
 
-<img src="allpaths4p4.png" alt="All Paths" width="500"/>
+<img src="allpaths4p4.png" alt="All Paths" width="600"/>
