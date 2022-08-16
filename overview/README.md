@@ -9,12 +9,14 @@ This effected the choice of variable, Wind Speed of Gust, as well as the visuals
 
 https://user-images.githubusercontent.com/40215823/183653555-6cfdba17-5c40-409a-a2f3-d081105e3d86.mp4
 
-$$
-\mu_k = \frac{\sum_n f(\bold{x}_n)^\alpha \bold{x}_n}{\sum_n f(\bold{x}_n)^\alpha}
-$$
-
 ## Centroids
-I devised an algorithm based on K-means and GMM to find the centre of a cyclone. A derivation and explanation can be found in [this Jupyter Notebook](../exploration/clustering.ipynb)
+
+I devised an algorithm based on K-means and GMM to find the centre of a cyclone. A derivation and explanation can be found in [this Jupyter Notebook](../exploration/clustering.ipynb). The equation I derived is as follows:
+
+$$
+\huge
+\mu_k = \frac{\sum_n f(\textbf{x}_n)^\alpha \textbf{x}_n}{\sum_n f(\textbf{x}_n)^\alpha}
+$$
 
 ### Initial testing
 <img src="centroid_threshold.gif" alt="Centroid" width="500"/>
