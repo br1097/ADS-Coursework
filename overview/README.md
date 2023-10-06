@@ -1,13 +1,11 @@
 # Overview of Applied Data Science Coursework
-This is a file to highlight contributions made by Harry Winer, not discounting efforts made by teammates. 
 
 ## Visualisation
 Visualisations made with explainability in mind. A priority of the project was to effectively communicate effects of a cyclone to the citizens of Bangladesh. 
 
-This effected the choice of variable, Wind Speed of Gust, as well as the visuals. Major cities were listed to provide concrete conceptual grounding. 
-
-
 https://user-images.githubusercontent.com/40215823/183653555-6cfdba17-5c40-409a-a2f3-d081105e3d86.mp4
+
+I used examples from live emergency weather broadcasts to make this visualisation. I first used the cartopy package to load a projection surface map of the area into MatPlotLib. I then segmented the data into areas of high wind-speed and low wind speed, giving each a color to indicate severity. Finally I loaded country boarders and added cities names in Bengali to provide a more concrete grounding for the data. 
 
 ## Centroids
 
